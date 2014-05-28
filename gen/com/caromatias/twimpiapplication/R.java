@@ -107,6 +107,7 @@ public final class R {
          */
         public static final int AppTheme=0x7f070001;
         /**  the theme applied to the application or activity 
+ <item name="android:actionBarTabStyle">@style/CustomActionBarTheme.ActionBarTab.Style</item> 
          */
         public static final int CustomActionBarTheme=0x7f070003;
         public static final int CustomActionBarTheme_ActionBarTab_Style=0x7f070005;

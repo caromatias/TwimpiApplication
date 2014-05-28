@@ -1,5 +1,12 @@
 package com.caromatias.twimpiapplication;
 
+import java.util.ArrayList;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -8,13 +15,17 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -48,12 +59,19 @@ public class LoginActivity extends Activity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	UserSessionManager session;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
+		
+		session = new UserSessionManager(getApplicationContext());  
+
+		// StrictMode.ThreadPolicy policy = new
+		// StrictMode.ThreadPolicy.Builder().permitAll().build();
+		// StrictMode.setThreadPolicy(policy);
 
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
@@ -92,6 +110,10 @@ public class LoginActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
+	}
+
+	public void conexionBd() {
+
 	}
 
 	/**
@@ -201,23 +223,63 @@ public class LoginActivity extends Activity {
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
 
+			/*
+			 * try { // Simulate network access. Thread.sleep(2000);
+			 * 
+			 * } catch (InterruptedException e) { return false; }
+			 */
+			boolean exito = false;
+			ArrayList parametros = new ArrayList();
+			parametros.add("Usuario");
+			parametros.add(mEmail);
+			parametros.add("Password");
+			parametros.add(mPassword);
+
+			JSONParseo jParseo = new JSONParseo();
+
+			String URL = "http://www.pisodigital.cl/twimpiweb/login.php";
+
+			JSONObject json = jParseo.recibir(URL, "post", parametros);
+
 			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				return false;
+				String success = json.getString("success");
+				Log.e("LOG",json.getString("success"));
+				if (success.equals("0")) {
+					exito = true;
+				}
+
+			} catch (Exception error) {
+				exito = false;
+				Toast.makeText(getApplicationContext(),
+						"error:" + error.getLocalizedMessage(),
+						Toast.LENGTH_LONG).show();
 			}
 
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mEmail)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
+			/*
+			 * // Llamada al servidor web php try { Post post = new Post();
+			 * String server_ip = "http://www.pisodigital.cl//"; JSONArray datos
+			 * = post.getServerData(parametros, server_ip +
+			 * "twimpiweb/login.php"); if (datos != null && datos.length() > 0)
+			 * { JSONObject json_data = datos.getJSONObject(0); int numdevueltos
+			 * = json_data.getInt("success"); if (numdevueltos == 0) {
+			 * Toast.makeText(getBaseContext(),
+			 * "Usuario Correcto...",Toast.LENGTH_SHORT).show(); return true; }
+			 * } else {
+			 * Toast.makeText(getBaseContext(),"Usuario o Contraseña inválida "+
+			 * parametros, Toast.LENGTH_SHORT).show(); return false; } } catch
+			 * (JSONException e) {
+			 * Toast.makeText(getBaseContext(),"Error al conectar con el servidor. "
+			 * ,Toast.LENGTH_SHORT).show(); return false; }
+			 */
+			/*
+			 * for (String credential : DUMMY_CREDENTIALS) { String[] pieces =
+			 * credential.split(":"); if (pieces[0].equals(mEmail)) { // Account
+			 * exists, return true if the password matches. return
+			 * pieces[1].equals(mPassword); } }
+			 */
 
 			// TODO: register the new account here.
-			return true;
+			return exito;
 		}
 
 		@Override
