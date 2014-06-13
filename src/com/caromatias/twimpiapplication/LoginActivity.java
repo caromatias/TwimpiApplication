@@ -103,6 +103,17 @@ public class LoginActivity extends Activity {
 						attemptLogin();
 					}
 				});
+		
+		////// REGISTER //////////////////
+		findViewById(R.id.txtResgister).setOnClickListener(
+				new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+						startActivity(i);
+					}
+				});
+		
 	}
 
 	@Override
@@ -265,7 +276,7 @@ public class LoginActivity extends Activity {
 			 * Toast.makeText(getBaseContext(),
 			 * "Usuario Correcto...",Toast.LENGTH_SHORT).show(); return true; }
 			 * } else {
-			 * Toast.makeText(getBaseContext(),"Usuario o Contraseña inválida "+
+			 * Toast.makeText(getBaseContext(),"Usuario o Contraseï¿½a invï¿½lida "+
 			 * parametros, Toast.LENGTH_SHORT).show(); return false; } } catch
 			 * (JSONException e) {
 			 * Toast.makeText(getBaseContext(),"Error al conectar con el servidor. "
@@ -289,7 +300,7 @@ public class LoginActivity extends Activity {
 
 			if (success) {
 				// finish();
-				Intent i = new Intent(LoginActivity.this, MainActivity.class);
+				Intent i = new Intent(LoginActivity.this, CenterActivity.class);
 				startActivity(i);
 			} else {
 				mPasswordView

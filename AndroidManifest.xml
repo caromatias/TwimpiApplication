@@ -15,7 +15,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/CustomActionBarTheme" >
+        android:theme="@style/Theme.Tab_twimpi" >
         <activity
             android:name="com.caromatias.twimpiapplication.MainActivity"
             android:label="@string/app_name" >
@@ -29,6 +29,33 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.caromatias.twimpiapplication.RegisterActivity"
+            android:label="@string/title_activity_register" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.caromatias.twimpiApplication.LoginActivity" />
+        </activity>
+        <activity
+            android:name="com.caromatias.twimpiapplication.PrincipalActivity"
+            android:label="@string/title_activity_principal" >
+        </activity>
+        <activity
+            android:name="com.caromatias.twimpiapplication.TabUnoActivity"
+            android:label="@string/title_activity_tab_uno" >
+        </activity>
+        <activity
+            android:name="com.caromatias.twimpiapplication.TabDosActivity"
+            android:label="@string/title_activity_tab_dos" >
+        </activity>
+        <activity
+            android:name="com.caromatias.twimpiapplication.TabTresActivity"
+            android:label="@string/title_activity_tab_tres" >
+        </activity>
+        <activity
+            android:name="com.caromatias.twimpiapplication.CenterActivity"
+            android:label="@string/title_activity_center" >
         </activity>
     </application>
 

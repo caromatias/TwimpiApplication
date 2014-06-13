@@ -38,6 +38,7 @@
 
         <LinearLayout
             style="@style/LoginFormContainer"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <ImageView
@@ -87,6 +88,16 @@
                 android:textColor="#FFFFFF"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp" />
+
+            <TextView
+                android:id="@+id/txtResgister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/action_register"
+                android:textAppearance="?android:attr/textAppearanceSmall" 
+                android:textColor="#6E6E6E"/>
 
         </LinearLayout>
     </ScrollView>
