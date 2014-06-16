@@ -1,11 +1,11 @@
 package com.caromatias.twimpiapplication;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,6 +26,15 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.FacebookException;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
+import com.facebook.widget.LoginButton.OnErrorListener;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -66,8 +75,8 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
-		
-		session = new UserSessionManager(getApplicationContext());  
+
+		session = new UserSessionManager(getApplicationContext());
 
 		// StrictMode.ThreadPolicy policy = new
 		// StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -103,17 +112,56 @@ public class LoginActivity extends Activity {
 						attemptLogin();
 					}
 				});
-		
-		////// REGISTER //////////////////
+
+		// //// REGISTER //////////////////
 		findViewById(R.id.txtResgister).setOnClickListener(
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+						Intent i = new Intent(LoginActivity.this,
+								RegisterActivity.class);
 						startActivity(i);
 					}
 				});
-		
+
+		// FACEBOOK LOGIN //
+
+		LoginButton authButton = (LoginButton) findViewById(R.id.login_button);
+		authButton.setOnErrorListener(new OnErrorListener() {
+
+			@Override
+			public void onError(FacebookException error) {
+
+			}
+		});
+		authButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+
+		authButton.setSessionStatusCallback(new Session.StatusCallback() {
+
+			@Override
+			public void call(Session session, SessionState state,
+					Exception exception) {
+
+				if (session.isOpened()) {
+					Request.executeMeRequestAsync(session,
+							new Request.GraphUserCallback() {
+								@Override
+								public void onCompleted(GraphUser user,
+										Response response) {
+									if (user != null) {
+										Intent i = new Intent(LoginActivity.this,
+												CenterActivity.class);
+										startActivity(i);
+									}
+								}
+							});
+				} else if (session.isClosed()) {
+					//txtSaludo.setText("!Bienvenido!");
+				}
+			}
+		});
+		// FACEBOOK LOGIN //
+
 	}
 
 	@Override
@@ -254,7 +302,7 @@ public class LoginActivity extends Activity {
 
 			try {
 				String success = json.getString("success");
-				Log.e("LOG",json.getString("success"));
+				Log.e("LOG", json.getString("success"));
 				if (success.equals("0")) {
 					exito = true;
 				}
@@ -315,4 +363,9 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 		}
 	}
+	@Override
+	   public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+	       Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	   }
 }

@@ -1,4 +1,5 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fb="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.caromatias.twimpiapplication.LoginActivity" >
 
@@ -45,34 +46,34 @@
                 android:id="@+id/imageView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="44dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="44dp"
                 android:src="@drawable/logouno" />
-            
+
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" />
+                android:singleLine="true" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:hint="@string/prompt_password"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" />
+                android:singleLine="true" />
 
             <Button
                 android:id="@+id/sign_in_button"
@@ -80,14 +81,14 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="right"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/boton"
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
                 android:text="@string/action_sign_in_register"
-                android:textColor="#FFFFFF"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp" />
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/txtResgister"
@@ -96,8 +97,15 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/action_register"
-                android:textAppearance="?android:attr/textAppearanceSmall" 
-                android:textColor="#6E6E6E"/>
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#6E6E6E" />
+
+            <com.facebook.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fb:login_text="Entra con Facebook"
+                fb:logout_text="Salir" />
 
         </LinearLayout>
     </ScrollView>

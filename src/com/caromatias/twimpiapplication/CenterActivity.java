@@ -18,6 +18,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.FacebookException;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.LoginButton;
+import com.facebook.widget.LoginButton.OnErrorListener;
+
 public class CenterActivity extends Activity implements ActionBar.TabListener {
 
 	/**
@@ -38,6 +47,7 @@ public class CenterActivity extends Activity implements ActionBar.TabListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_center);
+		
 
 		// Set up the action bar.
 		final ActionBar actionBar = getActionBar();
