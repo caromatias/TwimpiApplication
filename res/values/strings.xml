@@ -17,6 +17,8 @@
     <string name="title_activity_tab_dos">TabDosActivity</string>
     <string name="title_activity_tab_tres">TabTresActivity</string>
     <string name="title_activity_center">CenterActivity</string>
-    <string name="app_id">1441062782818270</string> 
+    <string name="app_id">1441062782818270</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
 
 </resources>
